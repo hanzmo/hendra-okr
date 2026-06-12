@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operations Review & OKR Plan 2026 | Vaudit</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:        #f4f6fb;
+  --surface:   #ffffff;
+  --border:    #e3e8f2;
+  --border-2:  #c9d2e8;
+  --ink:       #0e1320;
+  --ink-2:     #364060;
+  --ink-3:     #6b7599;
+  --ink-4:     #a0a8c0;
+  --blue:      #1a4fd6;
+  --blue-bg:   #eef3ff;
+  --blue-mid:  #b8cafe;
+  --green:     #0a6640;
+  --green-bg:  #edfaf4;
+  --green-mid: #6ee7b7;
+  --amber:     #854d0e;
+  --amber-bg:  #fffbeb;
+  --amber-mid: #fcd34d;
+  --red:       #991b1b;
+  --red-bg:    #fff1f1;
+  --red-mid:   #fca5a5;
+  --sidebar-w: 230px;
+  --header-h:  60px;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans:  'DM Sans', system-ui, sans-serif;
+  --mono:  'DM Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 14px; line-height: 1.7; }
+
+/* ── Layout ── */
+.layout { display: flex; min-height: 100vh; }
+.sidebar {
+  width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border);
+  position: fixed; top: 0; left: 0; bottom: 0; display: flex; flex-direction: column; z-index: 100; overflow-y: auto;
+}
+.sidebar-brand { padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+.brand-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 4px; }
+.brand-name { font-family: var(--serif); font-size: 17px; line-height: 1.25; color: var(--ink); }
+.brand-name span { color: var(--blue); }
+.sidebar-meta { padding: 12px 20px 14px; border-bottom: 1px solid var(--border); }
+.meta-line { font-size: 11px; color: var(--ink-3); line-height: 1.9; }
+.meta-line strong { color: var(--ink-2); font-weight: 600; font-size: 12px; display: block; }
+.sidebar-nav { flex: 1; padding: 14px 10px; }
+.nav-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4); padding: 0 8px; margin-bottom: 5px; margin-top: 14px; display: block; }
+.nav-label:first-child { margin-top: 0; }
+.nav-btn {
+  display: flex; align-items: center; gap: 9px; width: 100%; padding: 8px 10px;
+  border: none; background: transparent; border-radius: 7px; cursor: pointer;
+  font-family: var(--sans); font-size: 13px; color: var(--ink-3); font-weight: 400;
+  text-align: left; transition: background 0.14s, color 0.14s; margin-bottom: 1px;
+}
+.nav-btn:hover { background: var(--bg); color: var(--ink-2); }
+.nav-btn.active { background: var(--blue-bg); color: var(--blue); font-weight: 600; }
+.nav-icon { width: 20px; height: 20px; border-radius: 5px; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
+.nav-btn.active .nav-icon { background: var(--blue); color: white; }
+.nav-count { font-family: var(--mono); font-size: 9px; margin-left: auto; color: var(--ink-4); }
+.sidebar-footer { padding: 12px 20px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 10px; color: var(--ink-4); line-height: 1.8; }
+.main { margin-left: var(--sidebar-w); flex: 1; min-width: 0; }
+.topbar {
+  position: sticky; top: 0; background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border); height: var(--header-h);
+  display: flex; align-items: center; padding: 0 40px; z-index: 50; gap: 12px;
+}
+.topbar-section { font-family: var(--serif); font-size: 16px; color: var(--ink-2); }
+.topbar-dot { color: var(--ink-4); font-size: 10px; }
+.topbar-page { font-family: var(--mono); font-size: 10px; color: var(--ink-4); letter-spacing: 0.08em; text-transform: uppercase; }
+.topbar-badge { margin-left: auto; font-family: var(--mono); font-size: 10px; padding: 3px 10px; border-radius: 100px; background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-mid); }
+
+/* ── Sections ── */
+.section { display: none; padding: 38px 46px 80px; animation: fadeUp 0.2s ease; }
+.section.active { display: block; }
+@keyframes fadeUp { from { opacity:0; transform: translateY(5px); } to { opacity:1; transform: translateY(0); } }
+
+/* ── Common ── */
+.eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 7px; }
+.sec-title { font-family: var(--serif); font-size: 31px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 5px; }
+.sec-title em { font-style: italic; color: var(--ink-3); }
+.sec-sub { font-size: 14px; color: var(--ink-3); font-weight: 300; margin-bottom: 28px; }
+.divider { height: 1px; background: var(--border); margin-bottom: 28px; }
+.badge { font-family: var(--mono); font-size: 10px; padding: 3px 10px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; font-weight: 500; letter-spacing: 0.03em; }
+.badge-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-mid); }
+.badge-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-mid); }
+.badge-blue  { background: var(--blue-bg);  color: var(--blue);  border: 1px solid var(--blue-mid); }
+.badge-red   { background: var(--red-bg);   color: var(--red);   border: 1px solid var(--red-mid); }
+
+/* ════ COVER ════ */
+.cover-hero { background: var(--ink); border-radius: 16px; padding: 48px 50px 42px; color: white; margin-bottom: 28px; position: relative; overflow: hidden; }
+.cover-hero::after { content: ''; position: absolute; bottom:-60px; right:-60px; width:320px; height:320px; border-radius:50%; background: radial-gradient(circle, rgba(26,79,214,0.28) 0%, transparent 70%); pointer-events:none; }
+.ch-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 18px; }
+.ch-name { font-family: var(--serif); font-size: 42px; font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 4px; }
+.ch-role { font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 300; margin-bottom: 34px; }
+.ch-meta { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,0.08); border-radius: 10px; overflow: hidden; }
+.ch-meta-item { background: rgba(255,255,255,0.04); padding: 14px 18px; }
+.ch-ml { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.32); margin-bottom: 3px; }
+.ch-mv { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.82); }
+.cover-intro { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 26px 30px; margin-bottom: 22px; }
+.cover-intro h3 { font-family: var(--serif); font-size: 19px; font-weight: 400; margin-bottom: 10px; }
+.cover-intro p { font-size: 14px; color: var(--ink-2); margin-bottom: 8px; line-height: 1.75; }
+.cover-intro p:last-child { margin-bottom: 0; }
+.doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.doc-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; cursor: pointer; display: flex; gap: 12px; transition: border-color 0.14s, box-shadow 0.14s; }
+.doc-item:hover { border-color: var(--blue-mid); box-shadow: 0 2px 12px rgba(26,79,214,0.07); }
+.di-num { font-family: var(--serif); font-size: 20px; color: var(--ink-4); line-height: 1; min-width: 22px; }
+.di-title { font-weight: 600; font-size: 13px; margin-bottom: 2px; }
+.di-desc { font-size: 12px; color: var(--ink-3); }
+
+/* ════ SCORE CARDS ════ */
+.score-section { margin-bottom: 36px; }
+.score-header { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.score-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 0; }
+.score-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 22px 20px 20px; cursor: pointer; transition: box-shadow 0.15s, border-color 0.15s;
+  position: relative; overflow: hidden;
+}
+.score-card::before { content: ''; position: absolute; top:0; left:0; right:0; height: 4px; border-radius: 12px 12px 0 0; }
+.score-card.green::before { background: var(--green); }
+.score-card.amber::before { background: #f59e0b; }
+.score-card.red::before   { background: #ef4444; }
+.score-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); border-color: var(--border-2); }
+.score-card.active-card { border-color: var(--border-2); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.score-card.active-card.green { border-color: var(--green-mid); }
+.score-card.active-card.amber { border-color: var(--amber-mid); }
+.score-card.active-card.red   { border-color: var(--red-mid); }
+.sc-number { font-family: var(--serif); font-size: 48px; font-weight: 400; line-height: 1; margin-bottom: 4px; }
+.score-card.green .sc-number { color: var(--green); }
+.score-card.amber .sc-number { color: #b45309; }
+.score-card.red   .sc-number { color: var(--red); }
+.sc-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 10px; }
+.sc-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 10px; }
+.sc-bar-fill { height: 100%; border-radius: 2px; transition: width 1s ease; }
+.score-card.green .sc-bar-fill { background: var(--green); }
+.score-card.amber .sc-bar-fill { background: #f59e0b; }
+.score-card.red   .sc-bar-fill { background: #ef4444; }
+.sc-hint { font-size: 11px; color: var(--ink-4); font-family: var(--mono); display: flex; align-items: center; gap: 4px; }
+.sc-arrow { display: inline-block; transition: transform 0.2s ease; }
+.score-card.active-card .sc-arrow { transform: rotate(180deg); }
+/* Score explainer — full width, below all cards */
+.score-explainer-wrap {
+  display: none;
+  grid-column: 1 / -1;
+  width: 100%;
+  margin-top: 14px;
+}
+.score-explainer-wrap.open { display: block; animation: fadeUp 0.2s ease; }
+.score-explainer {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+  padding: 24px 28px; width: 100%;
+}
+.score-explainer.green { border-color: var(--green-mid); }
+.score-explainer.amber { border-color: var(--amber-mid); }
+.score-explainer.red   { border-color: var(--red-mid); }
+.se-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.se-num { font-family: var(--serif); font-size: 36px; font-weight: 400; line-height: 1; }
+.se-explainer.green .se-num, .score-explainer.green .se-num { color: var(--green); }
+.score-explainer.amber .se-num { color: #b45309; }
+.score-explainer.red   .se-num { color: var(--red); }
+.se-meta { flex: 1; }
+.se-title { font-weight: 700; font-size: 16px; color: var(--ink); margin-bottom: 2px; }
+.se-target { font-size: 12px; color: var(--ink-3); font-family: var(--mono); }
+.fivew-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.fivew-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+.fivew-item .fw-q { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue); margin-bottom: 6px; font-weight: 500; }
+.fivew-item .fw-a { font-size: 13px; color: var(--ink-2); line-height: 1.65; }
+
+/* ════ ACHIEVEMENTS ════ */
+.stat-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 28px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+.stat-card .sn { font-family: var(--serif); font-size: 32px; font-weight: 400; line-height: 1; margin-bottom: 4px; }
+.stat-card .sl { font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 500; }
+.stat-card.blue .sn { color: var(--blue); } .stat-card.green .sn { color: var(--green); }
+.stat-card.amber .sn { color: #b45309; } .stat-card.purple .sn { color: #5b21b6; }
+.ach-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 12px; }
+.ach-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 7px; }
+.ach-title { font-weight: 600; font-size: 14px; flex: 1; line-height: 1.4; }
+.ach-prog { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 10px; overflow: hidden; }
+.ach-fill { height: 100%; border-radius: 2px; }
+.fill-green { background: var(--green); } .fill-amber { background: #f59e0b; } .fill-blue { background: var(--blue); }
+.ach-desc { font-size: 13px; color: var(--ink-3); margin-bottom: 10px; line-height: 1.7; }
+.ach-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.ach-tag { font-size: 11px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 3px 9px; color: var(--ink-2); }
+.next-box { background: var(--blue-bg); border: 1px solid var(--blue-mid); border-radius: 8px; padding: 12px 16px; margin-top: 10px; font-size: 13px; color: var(--ink-2); }
+.next-box strong { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue); display: block; margin-bottom: 3px; }
+
+/* ════ WHY OKR ════ */
+.quote-hero { background: var(--ink); border-radius: 14px; padding: 38px 44px; color: white; margin-bottom: 26px; }
+.qh-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 12px; }
+.qh-quote { font-family: var(--serif); font-size: 25px; line-height: 1.35; font-style: italic; color: rgba(255,255,255,0.88); }
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 26px; }
+.why-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; }
+.why-card .wc-icon { font-size: 22px; margin-bottom: 10px; }
+.why-card h4 { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+.why-card p { font-size: 13px; color: var(--ink-3); line-height: 1.7; }
+
+/* OKR vs KPI comparison */
+.compare-header { font-family: var(--serif); font-size: 22px; font-weight: 400; margin-bottom: 6px; }
+.compare-sub { font-size: 13px; color: var(--ink-3); margin-bottom: 18px; }
+.compare-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+.compare-table thead tr { background: var(--ink); }
+.compare-table thead th { padding: 13px 18px; text-align: left; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: white; }
+.compare-table thead th:first-child { color: rgba(255,255,255,0.5); font-weight: 400; font-size: 11px; }
+.compare-table thead th.blue-col { background: rgba(26,79,214,0.3); }
+.compare-table tbody tr { border-bottom: 1px solid var(--border); }
+.compare-table tbody tr:last-child { border-bottom: none; }
+.compare-table tbody tr:hover { background: var(--bg); }
+.compare-table tbody td { padding: 13px 18px; font-size: 13px; color: var(--ink-2); vertical-align: top; border-right: 1px solid var(--border); }
+.compare-table tbody td:last-child { border-right: none; }
+.compare-table tbody td:first-child { font-weight: 600; color: var(--ink-3); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); background: var(--bg); }
+.compare-table tbody td.blue-col { color: var(--blue); font-weight: 500; }
+
+.example-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+.example-box-header { padding: 12px 20px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); background: var(--bg); display: flex; gap: 10px; align-items: center; }
+.example-box-header .ex-badge { font-size: 10px; padding: 2px 8px; border-radius: 100px; }
+.example-rows { display: grid; }
+.ex-row { display: grid; grid-template-columns: 1.4fr 1fr; border-bottom: 1px solid var(--border); }
+.ex-row:last-child { border-bottom: none; }
+.ex-cell { padding: 14px 18px; font-size: 13px; border-right: 1px solid var(--border); }
+.ex-cell:last-child { border-right: none; }
+.ex-cell .ec-label { font-family: var(--mono); font-size: 10px; color: var(--ink-4); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px; font-weight: 500; background: var(--bg); display: inline-block; padding: 2px 7px; border-radius: 4px; border: 1px solid var(--border); }
+.ex-cell .ec-label.blue { background: var(--blue-bg); color: var(--blue); border-color: var(--blue-mid); }
+.ex-cell .ec-val { color: var(--ink-2); line-height: 1.65; margin-top: 6px; }
+.ex-cell .ec-val strong { color: var(--ink); }
+
+.advantage-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 20px; }
+.adv-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+.adv-card .adv-icon { font-size: 20px; margin-bottom: 8px; }
+.adv-card h4 { font-weight: 600; font-size: 13px; margin-bottom: 5px; }
+.adv-card p { font-size: 12px; color: var(--ink-3); line-height: 1.65; }
+
+.proposal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; margin-top: 10px; }
+.proposal-box h3 { font-family: var(--serif); font-size: 20px; font-weight: 400; margin-bottom: 10px; }
+.proposal-box p { font-size: 14px; color: var(--ink-2); margin-bottom: 10px; line-height: 1.75; }
+.feat-list { display: grid; gap: 8px; margin-top: 14px; }
+.feat-item { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; color: var(--ink-2); padding: 11px 14px; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); }
+.feat-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.feat-item strong { color: var(--ink); display: block; margin-bottom: 1px; }
+
+/* ════ OKR PLAN ════ */
+.okr-block { margin-bottom: 30px; }
+.okr-hdr { border-radius: 12px 12px 0 0; padding: 15px 22px; display: flex; align-items: center; gap: 12px; }
+.okr-hdr.c-blue { background: var(--blue); } .okr-hdr.c-green { background: var(--green); } .okr-hdr.c-amber { background: #92400e; }
+.o-lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 100px; color: white; flex-shrink: 0; }
+.okr-hdr h3 { font-family: var(--serif); font-size: 18px; font-weight: 400; color: white; flex: 1; line-height: 1.3; }
+.o-period { font-size: 11px; color: rgba(255,255,255,0.52); font-family: var(--mono); flex-shrink: 0; }
+.okr-body { border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px; overflow: hidden; }
+.okr-obj-desc { padding: 13px 22px; background: var(--bg); border-bottom: 1px solid var(--border); font-size: 13px; color: var(--ink-3); font-style: italic; }
+.kr-row { display: grid; grid-template-columns: 2fr 1.5fr 80px 80px 80px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.kr-row:last-child { border-bottom: none; }
+.kr-row.th { background: var(--bg); font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-4); }
+.kr-cell { padding: 13px 16px; border-right: 1px solid var(--border); font-size: 13px; color: var(--ink-2); }
+.kr-cell:last-child { border-right: none; }
+.kr-cell .kr-title { font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+.kr-cell .kr-desc { font-size: 12px; color: var(--ink-3); line-height: 1.6; }
+.kr-metric { font-family: var(--mono); font-size: 11px; color: var(--ink-2); background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; display: inline-block; margin-top: 4px; }
+.prio { font-family: var(--mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 100px; display: inline-block; }
+.prio-h { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-mid); }
+.prio-m { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-mid); }
+.prio-s { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-mid); }
+/* Weight badge */
+.wt-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.wt-num { font-family: var(--serif); font-size: 20px; font-weight: 400; line-height: 1; }
+.wt-label { font-family: var(--mono); font-size: 9px; color: var(--ink-4); text-transform: uppercase; letter-spacing: 0.08em; }
+.wt-bar { width: 100%; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; margin-top: 2px; }
+.wt-fill { height: 100%; border-radius: 2px; background: var(--blue); }
+/* Objective weight banner */
+.okr-weight-banner { display: flex; align-items: center; gap: 10px; padding: 10px 22px; background: rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.15); }
+.owb-pct { font-family: var(--serif); font-size: 22px; font-weight: 400; color: white; line-height: 1; }
+.owb-label { font-size: 11px; color: rgba(255,255,255,0.6); }
+.owb-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden; }
+.owb-fill { height: 100%; border-radius: 2px; background: rgba(255,255,255,0.7); }
+
+/* ════ ROADMAP ════ */
+.roadmap { position: relative; padding-left: 28px; }
+.rm-line { position: absolute; left: 10px; top: 8px; bottom: 0; width: 2px; background: var(--border); border-radius: 2px; }
+.rm-block { position: relative; margin-bottom: 26px; }
+.rm-dot { position: absolute; left: -22px; top: 14px; width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border); background: var(--surface); display: flex; align-items: center; justify-content: center; }
+.rm-dot::after { content: ''; width: 6px; height: 6px; border-radius: 50%; }
+.rm-block.p1 .rm-dot { border-color: var(--blue); } .rm-block.p1 .rm-dot::after { background: var(--blue); }
+.rm-block.p2 .rm-dot { border-color: var(--green); } .rm-block.p2 .rm-dot::after { background: var(--green); }
+.rm-block.p3 .rm-dot { border-color: #7c3aed; }    .rm-block.p3 .rm-dot::after { background: #7c3aed; }
+.rm-block.p4 .rm-dot { border-color: #b45309; }    .rm-block.p4 .rm-dot::after { background: #f59e0b; }
+.rm-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.rm-card-hdr { padding: 13px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 11px; background: var(--bg); }
+.rm-ptag { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; font-weight: 500; }
+.p1 .rm-ptag { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-mid); }
+.p2 .rm-ptag { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-mid); }
+.p3 .rm-ptag { background: #f5f3ff; color: #5b21b6; border: 1px solid #c4b5fd; }
+.p4 .rm-ptag { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-mid); }
+.rm-card-hdr h4 { font-weight: 600; font-size: 14px; flex: 1; }
+.rm-date { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+.rm-tasks { padding: 14px 18px; display: grid; gap: 7px; }
+.rm-task { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: var(--ink-2); }
+.rm-task::before { content: '→'; color: var(--ink-4); flex-shrink: 0; margin-top: 1px; }
+.rm-task strong { color: var(--ink); }
+
+/* ════ TALKING ════ */
+.tp-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+.tp-card-title { padding: 13px 20px; background: var(--bg); border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); font-weight: 500; }
+.tp-row { display: flex; border-bottom: 1px solid var(--border); }
+.tp-row:last-child { border-bottom: none; }
+.tp-moment { min-width: 115px; padding: 13px 14px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--blue); border-right: 1px solid var(--border); background: var(--blue-bg); font-family: var(--mono); display: flex; align-items: flex-start; }
+.tp-content { padding: 13px 18px; font-size: 13px; color: var(--ink-2); flex: 1; line-height: 1.7; }
+.tp-content strong { color: var(--ink); }
+.steps-box { background: var(--blue-bg); border: 1px solid var(--blue-mid); border-radius: 10px; padding: 18px 22px; margin-top: 8px; }
+.steps-box .sb-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue); margin-bottom: 10px; }
+.step-line { font-size: 13px; color: var(--ink-2); display: flex; gap: 12px; margin-bottom: 7px; }
+.step-line:last-child { margin-bottom: 0; }
+.step-date { color: var(--blue); font-weight: 600; min-width: 58px; font-family: var(--mono); font-size: 11px; padding-top: 1px; }
+
+/* ── Footer ── */
+.doc-footer { margin-top: 50px; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-4); font-family: var(--mono); flex-wrap: wrap; gap: 6px; }
+
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .topbar { padding: 0 20px; }
+  .section { padding: 22px 18px 60px; }
+  .stat-row, .score-row { grid-template-columns: repeat(2,1fr); }
+  .why-grid, .fivew-grid, .doc-grid, .advantage-grid { grid-template-columns: 1fr; }
+  .ch-meta { grid-template-columns: 1fr; }
+  .kr-row { grid-template-columns: 1fr; }
+  .kr-row.th { display: none; }
+  .ex-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-label">Vaudit · Internal</div>
+    <div class="brand-name">Ops <span>Review</span><br>Jul–Dec 2026</div>
+  </div>
+  <div class="sidebar-meta">
+    <div class="meta-line">
+      <strong>Hendra Wijaya</strong>
+      Operations Manager
+    </div>
+    <div class="meta-line" style="margin-top:6px;">
+      Presented to<br>
+      <strong>Mark Pettigrew</strong> COO<br>
+      <strong>Michael Hahn</strong> CEO
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <span class="nav-label">Document</span>
+    <button class="nav-btn active" onclick="navigate('cover',this)">
+      <span class="nav-icon">⊞</span>Overview
+    </button>
+    <span class="nav-label">Apr–Jun Review</span>
+    <button class="nav-btn" onclick="navigate('score',this)">
+      <span class="nav-icon">◎</span>Performance &amp; Achievements
+      <span class="nav-count">4 OKRs</span>
+    </button>
+    <span class="nav-label">Jul–Dec Plan</span>
+    <button class="nav-btn" onclick="navigate('why-okr',this)">
+      <span class="nav-icon">⚡</span>Why OKRs vs KPI
+    </button>
+    <button class="nav-btn" onclick="navigate('okr-plan',this)">
+      <span class="nav-icon">▦</span>OKR Plan
+      <span class="nav-count">3×3</span>
+    </button>
+    <button class="nav-btn" onclick="navigate('roadmap',this)">
+      <span class="nav-icon">→</span>Roadmap
+    </button>
+    <span class="nav-label">Meeting</span>
+    <button class="nav-btn" onclick="navigate('talking',this)">
+      <span class="nav-icon">◈</span>Key Points
+    </button>
+  </nav>
+  <div class="sidebar-footer">June 2026<br>Confidential</div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <span class="topbar-section" id="topbar-title">Overview</span>
+    <span class="topbar-dot">·</span>
+    <span class="topbar-page">Operations Review & OKR Plan</span>
+    <span class="topbar-badge">Jul–Dec 2026</span>
+  </div>
+
+  <!-- ═══ COVER ═══ -->
+  <section class="section active" id="cover">
+    <div class="cover-hero">
+      <div class="ch-eyebrow">Vaudit · Operations Review · June 2026</div>
+      <div class="ch-name">Hendra Wijaya</div>
+      <div class="ch-role">Operations Manager · Bangkok, Thailand</div>
+      <div class="ch-meta">
+        <div class="ch-meta-item"><div class="ch-ml">Presented to</div><div class="ch-mv">Mark Pettigrew (COO) · Michael Hahn (CEO)</div></div>
+        <div class="ch-meta-item"><div class="ch-ml">Review covers</div><div class="ch-mv">Apr–Jun Performance + Jul–Dec OKR Commitment</div></div>
+        <div class="ch-meta-item"><div class="ch-ml">OKR Period</div><div class="ch-mv">July 1 — December 31, 2026</div></div>
+      </div>
+    </div>
+    <div class="cover-intro">
+      <h3>Purpose of this document</h3>
+      <p>This document presents a review of Vaudit Operations initiatives delivered during the first half of 2026, together with a performance self-assessment, a proposal for adopting an OKR framework across the company, and a formal Jul–Dec 2026 OKR commitment with clear objectives, measurable key results, and delivery timelines.</p>
+      <p>The OKR framework proposed here is also designed to be embedded directly into the Vaudit Accountability Dashboard — so every team member's work is visible and traceable back to company direction and board targets in real time.</p>
+    </div>
+      <div class="doc-grid">
+        <div class="doc-item" onclick="go('score')"><span class="di-num">1</span><div><div class="di-title">Performance &amp; Achievements</div><div class="di-desc">Apr–Jun scores derived from 4 Objectives × 3 KRs each</div></div></div>
+        <div class="doc-item" onclick="go('why-okr')"><span class="di-num">2</span><div><div class="di-title">Why OKRs vs KPIs</div><div class="di-desc">The strategic case for OKR adoption at Vaudit</div></div></div>
+        <div class="doc-item" onclick="go('okr-plan')"><span class="di-num">3</span><div><div class="di-title">OKR Plan — Jul to Dec 2026</div><div class="di-desc">3 Objectives × 3 Key Results with owners and deadlines</div></div></div>
+        <div class="doc-item" onclick="go('roadmap')"><span class="di-num">4</span><div><div class="di-title">Delivery Roadmap</div><div class="di-desc">Month-by-month plan from July to December</div></div></div>
+        <div class="doc-item" onclick="go('talking')"><span class="di-num">5</span><div><div class="di-title">Key Discussion Points</div><div class="di-desc">Topics to align on during this meeting</div></div></div>
+      </div>
+  </section>
+
+  <!-- ═══ Apr–Jun REVIEW (merged score + achievements) ═══ -->
+  <section class="section" id="score">
+    <div class="eyebrow">Apr–Jun 2026 · April – June</div>
+    <div class="sec-title">Performance Review &amp; <em>Apr–Jun Achievements</em></div>
+    <div class="sec-sub">Scores are derived from the OKR results below — click any score card to see the 5W1H breakdown</div>
+    <div class="divider"></div>
+
+    <!-- ── Score cards ── -->
+    <div class="score-section">
+      <div class="score-header">Overall Apr–Jun Performance Estimate — derived from KR completion below</div>
+      <div class="score-row" id="score-cards-row">
+        <div class="score-card green" id="card-delivery" onclick="toggleScore('delivery')">
+          <div class="sc-number">73%</div>
+          <div class="sc-label">Delivery Score</div>
+          <div class="sc-bar"><div class="sc-bar-fill" style="width:73%"></div></div>
+          <div class="sc-hint"><span class="sc-arrow">▼</span>&nbsp;Click to expand</div>
+        </div>
+        <div class="score-card amber" id="card-impact" onclick="toggleScore('impact')">
+          <div class="sc-number">55%</div>
+          <div class="sc-label">Business Impact</div>
+          <div class="sc-bar"><div class="sc-bar-fill" style="width:55%"></div></div>
+          <div class="sc-hint"><span class="sc-arrow">▼</span>&nbsp;Click to expand</div>
+        </div>
+        <div class="score-card red" id="card-maturity" onclick="toggleScore('maturity')">
+          <div class="sc-number">40%</div>
+          <div class="sc-label">Ops Maturity</div>
+          <div class="sc-bar"><div class="sc-bar-fill" style="width:40%"></div></div>
+          <div class="sc-hint"><span class="sc-arrow">▼</span>&nbsp;Click to expand</div>
+        </div>
+      </div>
+
+      <div class="score-explainer-wrap" id="wrap-delivery">
+        <div class="score-explainer green">
+          <div class="se-header">
+            <div class="sc-number" style="font-size:40px;color:var(--green)">73%</div>
+            <div class="se-meta">
+              <div class="se-title">Delivery Score</div>
+              <div class="se-target">Target by Dec 2026: ≥ 90% · Driven by: O-A KR1+KR2 (full), O-B KR1 (full), O-C KR1 (partial)</div>
+            </div>
+          </div>
+          <div class="fivew-grid">
+            <div class="fivew-item"><div class="fw-q">What</div><div class="fw-a">Measures how many planned deliverables were actually shipped and working in production — not just started or designed.</div></div>
+            <div class="fivew-item"><div class="fw-q">Who</div><div class="fw-a">Assessed across all Apr–Jun Objectives: Dashboard platform (O-A 40%), SLA Framework (O-B 35%), and Partner Dashboard (O-C 25%).</div></div>
+            <div class="fivew-item"><div class="fw-q">When</div><div class="fw-a">Covers the full Apr–Jun period (April – June 2026). Score reflects the state as of this review date.</div></div>
+            <div class="fivew-item"><div class="fw-q">Where</div><div class="fw-a">Across internal tools (Accountability Dashboard, edgeone.app), Google Workspace integrations, Slack, and Vercel deployments.</div></div>
+            <div class="fivew-item"><div class="fw-q">Why 73%</div><div class="fw-a">O-A (40%) and O-B (35%) fully delivered. O-C (25%) built and deployed as a proof of concept — being strategically sunset and consolidated into the main dashboard. Finance automation carried to Jul–Dec O2. Weighted average lands at 73%.</div></div>
+            <div class="fivew-item"><div class="fw-q">How to improve</div><div class="fw-a">Ship Finance pipeline in July (Jul–Dec O2) and complete Zendesk-AR in August. Both scoped — execution gap only.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="score-explainer-wrap" id="wrap-impact">
+        <div class="score-explainer amber">
+          <div class="se-header">
+            <div class="sc-number" style="font-size:40px;color:#b45309">55%</div>
+            <div class="se-meta">
+              <div class="se-title">Business Impact Score</div>
+              <div class="se-target">Target by Dec 2026: ≥ 75% · Driven by: O-B KR2 (SLA cron live), O-A KR2 (PO workflow active)</div>
+            </div>
+          </div>
+          <div class="fivew-grid">
+            <div class="fivew-item"><div class="fw-q">What</div><div class="fw-a">Measures whether tools built have produced a visible, measurable improvement in business outcomes — not just operational activity.</div></div>
+            <div class="fivew-item"><div class="fw-q">Who</div><div class="fw-a">Evaluated from the perspective of Finance, Partnerships, Engineering, and Data divisions that depend on Ops outputs.</div></div>
+            <div class="fivew-item"><div class="fw-q">When</div><div class="fw-a">Assessed against improvements expected to be measurable within Apr–Jun — SLA resolution time, partner reporting adoption, finance coordination efficiency.</div></div>
+            <div class="fivew-item"><div class="fw-q">Where</div><div class="fw-a">The gap is most visible in Finance automation (now Jul–Dec O2). O-B SLA cron is the strongest contributor. O-C is a strategic consolidation, not a missing impact.</div></div>
+            <div class="fivew-item"><div class="fw-q">Why 55%</div><div class="fw-a">O-B SLA framework is in production and measurably reducing escalation lag (strong). O-A PO workflow removes approval email chains (moderate). Finance automation not built in Apr–Jun — carried to Jul–Dec O2 as highest priority.</div></div>
+            <div class="fivew-item"><div class="fw-q">How to improve</div><div class="fw-a">Jul–Dec O2 Finance pipeline produces the first hard business metric: invoices processed without manual entry. Measurable by end of August 2026.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="score-explainer-wrap" id="wrap-maturity">
+        <div class="score-explainer red">
+          <div class="se-header">
+            <div class="sc-number" style="font-size:40px;color:var(--red)">40%</div>
+            <div class="se-meta">
+              <div class="se-title">Ops Maturity Score</div>
+              <div class="se-target">Target by Dec 2026: ≥ 70% · Driven by: O-A KR A.3 (partial, 3 of 4 divisions), O-C KR C.2 (decided), playbook pending</div>
+            </div>
+          </div>
+          <div class="fivew-grid">
+            <div class="fivew-item"><div class="fw-q">What</div><div class="fw-a">Measures how independently the Ops function runs — documentation, multi-division adoption, and absence of single points of failure.</div></div>
+            <div class="fivew-item"><div class="fw-q">Who</div><div class="fw-a">Reflects how well all divisions can use and rely on Ops systems without direct support from the Operations Manager.</div></div>
+            <div class="fivew-item"><div class="fw-q">When</div><div class="fw-a">Current state at month 3. A mature Ops function typically takes 6–12 months — this is an honest marker of where we are.</div></div>
+            <div class="fivew-item"><div class="fw-q">Where</div><div class="fw-a">Positive: 3 divisions (Mark, Dan, Chris) actively using the Accountability Dashboard. Gaps: no ops playbook, fourth division not yet onboarded, Ops-Bot blocked on BigQuery schema.</div></div>
+            <div class="fivew-item"><div class="fw-q">Why 40%</div><div class="fw-a">O-A KR3 partially met (3 of 4 divisions active). O-C is being strategically sunset and consolidated — counts as a decision, not a failure. Main drag is missing playbook, no Finance/Data division adoption yet, and Ops-Bot blocked.</div></div>
+            <div class="fivew-item"><div class="fw-q">How to improve</div><div class="fw-a">Jul–Dec O3 directly addresses this: automating the top recurring manual tasks across divisions frees up team time. O-C consolidation removes a second system to maintain. Ops Playbook by November closes the documentation gap.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Score legend ── -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:32px;">
+      <div style="background:var(--green-bg);border:1px solid var(--green-mid);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--ink-2);">
+        <strong style="color:var(--green);font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:3px;">Delivery 73%</strong>
+        O-A (40%) and O-B (35%) fully completed · O-C (25%) deployed as POC — sunsetting
+      </div>
+      <div style="background:var(--amber-bg);border:1px solid var(--amber-mid);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--ink-2);">
+        <strong style="color:#b45309;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:3px;">Business Impact 55%</strong>
+        O-B KR B.2 (50% of O-B) SLA cron strongest · O-A KR A.2 (35% of O-A) PO workflow moderate · Finance automation → Jul–Dec O2
+      </div>
+      <div style="background:var(--red-bg);border:1px solid var(--red-mid);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--ink-2);">
+        <strong style="color:var(--red);font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:3px;">Ops Maturity 40%</strong>
+        3 divisions active (Mark, Dan, Chris) · O-C consolidating into one system · 4th division + playbook still pending
+      </div>
+    </div>
+
+    <!-- ── Apr–Jun OKRs ── -->
+    <div style="font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:4px;">Apr–Jun Objectives &amp; Key Results</div>
+    <div style="font-size:13px;color:var(--ink-3);margin-bottom:20px;">Each KR shows its contribution to the three performance scores above. Scores are the weighted result of all KRs across all Objectives.</div>
+
+    <!-- Apr–Jun O-A -->
+    <div class="okr-block">
+      <div class="okr-hdr c-blue">
+        <span class="o-lbl">O-A</span>
+        <h3>Build a Scalable Vaudit Accountability Dashboard</h3>
+        <span class="o-period">Apr – Jun 2026</span>
+      </div>
+      <div class="okr-weight-banner" style="background:rgba(26,79,214,0.25);border-bottom:1px solid rgba(255,255,255,0.12);">
+        <div class="owb-pct">40%</div>
+        <div>
+          <div class="owb-label">of total Apr–Jun OKR score</div>
+          <div class="owb-bar" style="width:160px;margin-top:4px;"><div class="owb-fill" style="width:40%"></div></div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-left:auto;font-family:var(--mono);">Flagship platform — highest priority</div>
+      </div>
+      <div class="okr-body">
+        <div class="okr-obj-desc">Rebuild the operations dashboard from a monolithic codebase into a production-grade, modular platform with secure API access, cross-division workflows, and Google Workspace integration.</div>
+        <div class="kr-row th">
+          <div class="kr-cell">Key Result</div>
+          <div class="kr-cell">Outcome</div>
+          <div class="kr-cell">Weight</div>
+          <div class="kr-cell">Score contribution</div>
+          <div class="kr-cell">Status</div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR A.1 — Modular architecture with 11 page modules</div>
+            <div class="kr-desc">app.js split into 11 separate modules, clean URL routing via history.pushState, Vercel serverless proxy for API security.</div>
+          </div>
+          <div class="kr-cell" style="font-size:13px;color:var(--ink-2);">Production-grade codebase. API credentials no longer exposed in browser. All routing working.</div>
+          <div class="kr-cell"><div class="wt-cell"><div class="wt-num" style="color:var(--blue);">40%</div><div class="wt-label">of O-A</div><div class="wt-bar"><div class="wt-fill" style="width:40%"></div></div></div></div>
+          <div class="kr-cell">
+            <span class="kr-metric" style="background:var(--green-bg);color:var(--green);border-color:var(--green-mid);">Delivery +25%</span>
+            <div class="kr-desc" style="margin-top:5px;">Ops Maturity +10%</div>
+          </div>
+          <div class="kr-cell"><span class="badge badge-green">Completed</span></div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR A.2 — Full Purchase Orders system with Slack approval</div>
+            <div class="kr-desc">5 PO form types, Slack Block Kit notifications, CFO/CEO routing by amount threshold, screenshot paper trail, Config sheet-driven approver config.</div>
+          </div>
+          <div class="kr-cell" style="font-size:13px;color:var(--ink-2);">End-to-end PO workflow live. Finance and Ops divisions can process approvals without email chains.</div>
+          <div class="kr-cell"><div class="wt-cell"><div class="wt-num" style="color:var(--blue);">35%</div><div class="wt-label">of O-A</div><div class="wt-bar"><div class="wt-fill" style="width:35%"></div></div></div></div>
+          <div class="kr-cell">
+            <span class="kr-metric" style="background:var(--green-bg);color:var(--green);border-color:var(--green-mid);">Delivery +20%</span>
+            <div class="kr-desc" style="margin-top:5px;">Business Impact +15%</div>
+          </div>
+          <div class="kr-cell"><span class="badge badge-green">Completed</span></div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR A.3 — Cross-division adoption confirmed</div>
+            <div class="kr-desc">Active users across at least 4 divisions using the dashboard as part of their regular workflow. Login data collected.</div>
+          </div>
+          <div class="kr-cell" style="font-size:13px;color:var(--ink-2);">3 confirmed active users: Mark (COO), Chris, and Dan (Partnerships). Target was 4 divisions — partially met. Formal login data collection not yet in place.</div>
+          <div class="kr-cell"><div class="wt-cell"><div class="wt-num" style="color:var(--blue);">25%</div><div class="wt-label">of O-A</div><div class="wt-bar"><div class="wt-fill" style="width:25%"></div></div></div></div>
+          <div class="kr-cell">
+            <span class="kr-metric" style="background:var(--amber-bg);color:var(--amber);border-color:var(--amber-mid);">Ops Maturity −8%</span>
+            <div class="kr-desc" style="margin-top:5px;">3 of 4 target divisions active — expand to Finance and Data in Jul–Dec</div>
+          </div>
+          <div class="kr-cell"><span class="badge badge-amber">Partial</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Apr–Jun O-B -->
+    <div class="okr-block">
+      <div class="okr-hdr c-green">
+        <span class="o-lbl">O-B</span>
+        <h3>Establish Operations SLA Framework Across All Divisions</h3>
+        <span class="o-period">Apr – Jun 2026</span>
+      </div>
+      <div class="okr-weight-banner" style="background:rgba(10,102,64,0.3);border-bottom:1px solid rgba(255,255,255,0.12);">
+        <div class="owb-pct">35%</div>
+        <div>
+          <div class="owb-label">of total Apr–Jun OKR score</div>
+          <div class="owb-bar" style="width:160px;margin-top:4px;"><div class="owb-fill" style="width:35%"></div></div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-left:auto;font-family:var(--mono);">Direct ops impact — SLA + escalation</div>
+      </div>
+      <div class="okr-body">
+        <div class="okr-obj-desc">Design, document, and deploy a tiered SLA system (P1–P3) so every escalation and case has a defined response target, owner, and automated stage-advance — removing manual chasing from the Ops function.</div>
+        <div class="kr-row th">
+          <div class="kr-cell">Key Result</div>
+          <div class="kr-cell">Outcome</div>
+          <div class="kr-cell">Weight</div>
+          <div class="kr-cell">Score contribution</div>
+          <div class="kr-cell">Status</div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR B.1 — P1/P2/P3 SLA framework documented and presented</div>
+            <div class="kr-desc">Full SLA document with escalation paths, response time targets per priority, and tiered owner assignment. Presented to leadership.</div>
+          </div>
+          <div class="kr-cell" style="font-size:13px;color:var(--ink-2);">Documentation complete. Presented to Mark and Michael. Framework adopted as the standard for all escalations.</div>
+          <div class="kr-cell"><div class="wt-cell"><div class="wt-num" style="color:var(--green);">30%</div><div class="wt-label">of O-B</div><div class="wt-bar"><div class="wt-fill" style="width:30%;background:var(--green)"></div></div></div></div>
+          <div class="kr-cell">
+            <span class="kr-metric" style="background:var(--green-bg);color:var(--green);border-color:var(--green-mid);">Delivery +15%</span>
+            <div class="kr-desc" style="margin-top:5px;">Ops Maturity +10%</div>
+          </div>
+          <div class="kr-cell"><span class="badge badge-green">Completed</span></div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR B.2 — Auto-escalation cron running in production</div>
+            <div class="kr-desc">Vercel-scheduled cron automatically advances case stages when SLA deadlines are breached — without manual intervention from Ops.</div>
+          </div>
+          <div class="kr-cell" style="font-size:13px;color:var(--ink-2);">Cron live. Escalations now triggered automatically. Measurable reduction in missed SLA breaches going unnoticed.</div>
+          <div class="kr-cell"><div class="wt-cell"><div class="wt-num" style="color:var(--green);">50%</div><div class="wt-label">of O-B</div><div class="wt-bar"><div class="wt-fill" style="width:50%;background:var(--green)"></div></div></div></div>
+          <div class="kr-cell">
+            <span class="kr-metric" style="background:var(--green-bg);color:var(--green);border-color:var(--green-mid);">Business Impact +20%</span>
+            <div class="kr-desc" style="margin-top:5px;">Strongest single contributor to impact score</div>
+          </div>
+          <div class="kr-cell"><span class="badge badge-green">Completed</span></div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR B.3 — SLA resolution time baseline measured</div>
+            <div class="kr-desc">A before/after measurement of average P1 and P2 resolution time to confirm the SLA framework is producing faster outcomes.</div>
+          </div>
+          <div class="kr-cell" style="font-size:13px;color:var(--ink-3);font-style:italic;">Baseline not yet formally measured. Qualitative improvement observed but no data collected.</div>
+          <div class="kr-cell"><div class="wt-cell"><div class="wt-num" style="color:#b45309;">20%</div><div class="wt-label">of O-B</div><div class="wt-bar"><div class="wt-fill" style="width:20%;background:#f59e0b"></div></div></div></div>
+          <div class="kr-cell">
+            <span class="kr-metric" style="background:var(--amber-bg);color:var(--amber);border-color:var(--amber-mid);">Business Impact −10%</span>
+            <div class="kr-desc" style="margin-top:5px;">Missing data weakens impact claim</div>
+          </div>
+          <div class="kr-cell"><span class="badge badge-amber">Partial</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Apr–Jun O-C -->
+    <div class="okr-block">
+      <div class="okr-hdr" style="background:#6b7599;">
+        <span class="o-lbl">O-C</span>
+        <h3>Partner Performance Dashboard — vaudit.edgeone.app</h3>
+        <span class="o-period">Apr – Jun 2026 · Sunsetting</span>
+      </div>
+      <div class="okr-weight-banner" style="background:rgba(107,117,153,0.35);border-bottom:1px solid rgba(255,255,255,0.12);">
+        <div class="owb-pct">25%</div>
+        <div>
+          <div class="owb-label">of total Apr–Jun OKR score</div>
+          <div class="owb-bar" style="width:160px;margin-top:4px;"><div class="owb-fill" style="width:25%"></div></div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-left:auto;font-family:var(--mono);">POC value retained — being consolidated</div>
+      </div>
+      <div class="okr-body">
+        <div class="okr-obj-desc" style="background:var(--amber-bg);border-left:3px solid var(--amber-mid);color:var(--amber);font-style:normal;font-weight:500;">
+          ⚠ This Objective is being sunset. The standalone Partner dashboard at vaudit.edgeone.app will be deprecated and its reporting functionality migrated into the Accountability Dashboard as a native module. This is a strategic consolidation — not a failure of delivery.
+        </div>
+        <div class="kr-row th">
+          <div class="kr-cell">Key Result</div>
+          <div class="kr-cell">Outcome</div>
+          <div class="kr-cell">Weight</div>
+          <div class="kr-cell">Score contribution</div>
+          <div class="kr-cell">Status</div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR C.1 — Dashboard built and deployed at vaudit.edgeone.app</div>
+            <div class="kr-desc">Dynamic filters, Claude Haiku AI insights, Google Sheets auto-sync, and Slack integration deployed and accessible to the Partnerships division.</div>
+          </div>
+          <div class="kr-cell" style="font-size:13px;color:var(--ink-2);">Deployed and fully functional. Served as a proof of concept for the Partnerships reporting format — validated the approach before consolidation into the main dashboard.</div>
+          <div class="kr-cell"><div class="wt-cell"><div class="wt-num" style="color:var(--ink-2);">40%</div><div class="wt-label">of O-C</div><div class="wt-bar"><div class="wt-fill" style="width:40%;background:var(--ink-3)"></div></div></div></div>
+          <div class="kr-cell">
+            <span class="kr-metric" style="background:var(--green-bg);color:var(--green);border-color:var(--green-mid);">Delivery +10%</span>
+            <div class="kr-desc" style="margin-top:5px;">Proof of concept value retained</div>
+          </div>
+          <div class="kr-cell"><span class="badge badge-green">Completed</span></div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR C.2 — Partnerships reporting format validated and agreed</div>
+            <div class="kr-desc">Decision made on the right format for partner reporting — standalone tool vs embedded in Accountability Dashboard.</div>
+          </div>
+          <div class="kr-cell" style="font-size:13px;color:var(--ink-2);">Format decision made: consolidate into Accountability Dashboard. Standalone tool to be deprecated. This is the right architectural direction.</div>
+          <div class="kr-cell"><div class="wt-cell"><div class="wt-num" style="color:var(--ink-2);">35%</div><div class="wt-label">of O-C</div><div class="wt-bar"><div class="wt-fill" style="width:35%;background:var(--ink-3)"></div></div></div></div>
+          <div class="kr-cell">
+            <span class="kr-metric" style="background:var(--green-bg);color:var(--green);border-color:var(--green-mid);">Ops Maturity +8%</span>
+            <div class="kr-desc" style="margin-top:5px;">One system to maintain is better than two</div>
+          </div>
+          <div class="kr-cell"><span class="badge badge-green">Decided</span></div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR C.3 — Partner reporting module live inside Accountability Dashboard</div>
+            <div class="kr-desc">The standalone site is retired and partner performance reporting runs natively within the Accountability Dashboard — one login, one system, one source of truth.</div>
+          </div>
+          <div class="kr-cell" style="font-size:13px;color:var(--ink-3);font-style:italic;">Migration not yet started. Moved to Jul–Dec scope — planned alongside the Automation Expansion work in Q4 2026.</div>
+          <div class="kr-cell"><div class="wt-cell"><div class="wt-num" style="color:var(--blue);">25%</div><div class="wt-label">of O-C</div><div class="wt-bar"><div class="wt-fill" style="width:25%"></div></div></div></div>
+          <div class="kr-cell">
+            <span class="kr-metric" style="background:var(--blue-bg);color:var(--blue);border-color:var(--blue-mid);">Carried to Jul–Dec</span>
+            <div class="kr-desc" style="margin-top:5px;">Planned as part of Jul–Dec O3 dashboard expansion</div>
+          </div>
+          <div class="kr-cell"><span class="badge badge-blue">Jul–Dec Scope</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--blue-bg);border:1px solid var(--blue-mid);border-radius:10px;padding:16px 20px;font-size:13px;color:var(--ink-2);">
+      <strong style="display:block;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);margin-bottom:5px;">How the scores connect to the KR weights</strong>
+      Delivery 73% = O-A (40%) and O-B (35%) fully completed + O-C (25%) deployed as POC (strategic sunset) · Business Impact 55% = O-B KR B.2 SLA cron (50% of O-B) strongest contributor; O-A KR A.2 PO workflow (35% of O-A) moderate; Finance automation carried to Jul–Dec O2 · Ops Maturity 40% = 3 divisions active (Mark, Dan, Chris), O-C consolidating to one system, 4th division + playbook still pending
+    </div>
+  </section>
+
+  <!-- ═══ WHY OKR ═══ -->
+  <section class="section" id="why-okr">
+    <div class="eyebrow">Strategic Proposal</div>
+    <div class="sec-title">OKR vs KPI — <em>Why the Difference Matters</em></div>
+    <div class="sec-sub">Understanding the right framework before committing to one</div>
+    <div class="divider"></div>
+
+    <div class="quote-hero">
+      <div class="qh-label">The core challenge at Vaudit</div>
+      <div class="qh-quote">"Every team can be occupied and productive. That does not mean the company is moving in the right direction."</div>
+    </div>
+
+    <!-- Communication problem diagnosis -->
+    <div style="margin-bottom:32px;">
+      <div class="compare-header">The Real Problem — When KPIs Become Someone Else's Job</div>
+      <div class="compare-sub">A common failure pattern in growing companies — and how to fix it structurally.</div>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px;">
+        <div style="padding:16px 22px;background:var(--red-bg);border-bottom:1px solid var(--red-mid);display:flex;gap:12px;align-items:flex-start;">
+          <div style="background:var(--red);color:white;font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:6px;flex-shrink:0;font-weight:600;letter-spacing:0.04em;">PATTERN IDENTIFIED</div>
+          <div style="font-size:14px;font-weight:600;color:var(--red);">Division leads are not maintaining their own KPIs — HR is filling the gap</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
+          <div style="padding:18px 22px;border-right:1px solid var(--border);">
+            <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-4);margin-bottom:8px;">What is happening</div>
+            <p style="font-size:13px;color:var(--ink-2);line-height:1.7;margin-bottom:8px;">KPIs are supposed to be owned and updated by each division lead — but in practice, HR ends up doing the updates at the end of the cycle. Division leads are not maintaining visibility into their own team's performance numbers.</p>
+            <p style="font-size:13px;color:var(--ink-2);line-height:1.7;">This is not simply a communication problem. It is a <strong>system design problem</strong>. When there is no consequence for not updating and someone else always fills the gap, the rational behaviour is to let that someone else handle it.</p>
+          </div>
+          <div style="padding:18px 22px;">
+            <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-4);margin-bottom:8px;">Why it happens</div>
+            <ul style="list-style:none;display:grid;gap:7px;">
+              <li style="font-size:13px;color:var(--ink-2);display:flex;gap:9px;align-items:flex-start;"><span style="color:var(--red);flex-shrink:0;font-size:15px;line-height:1.3;">→</span>KPI updates are a manual, low-urgency task — always pushed to tomorrow</li>
+              <li style="font-size:13px;color:var(--ink-2);display:flex;gap:9px;align-items:flex-start;"><span style="color:var(--red);flex-shrink:0;font-size:15px;line-height:1.3;">→</span>No visible consequence when a division lead skips the update — HR absorbs it</li>
+              <li style="font-size:13px;color:var(--ink-2);display:flex;gap:9px;align-items:flex-start;"><span style="color:var(--red);flex-shrink:0;font-size:15px;line-height:1.3;">→</span>Leadership does not see in real time whose numbers are stale — so no one gets asked</li>
+              <li style="font-size:13px;color:var(--ink-2);display:flex;gap:9px;align-items:flex-start;"><span style="color:var(--red);flex-shrink:0;font-size:15px;line-height:1.3;">→</span>The system requires manual discipline — and discipline alone never scales</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ops Manager role -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px;">
+        <div style="padding:14px 22px;background:var(--blue-bg);border-bottom:1px solid var(--blue-mid);">
+          <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);margin-bottom:2px;font-weight:600;">Ops Manager Role</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);">How Operations removes the bottleneck — without becoming the enforcer</div>
+        </div>
+        <div style="padding:18px 22px;">
+          <p style="font-size:13px;color:var(--ink-2);line-height:1.75;margin-bottom:14px;">The Operations Manager does not own the communication problem directly — but owns the system that makes accountability visible. The fix is not to send reminders or chase division leads. The fix is to build a system where <strong>not updating has a visible cost</strong> and <strong>updating requires no extra effort</strong>.</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px;">
+              <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);margin-bottom:6px;font-weight:600;">Remove the manual step</div>
+              <p style="font-size:12px;color:var(--ink-3);line-height:1.65;">The Ops-Bot (O1) connects to all data sources — Zendesk, Google Sheets, the Dashboard — and updates KR progress automatically. Division leads do not need to manually enter anything.</p>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px;">
+              <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);margin-bottom:6px;font-weight:600;">Make staleness visible</div>
+              <p style="font-size:12px;color:var(--ink-3);line-height:1.65;">The weekly OKR digest (O3) shows leadership exactly which division's numbers are current and which are stale. The conversation shifts from "why didn't HR update?" to "why is Division X still amber after 2 weeks?"</p>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px;">
+              <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);margin-bottom:6px;font-weight:600;">Shift ownership clearly</div>
+              <p style="font-size:12px;color:var(--ink-3);line-height:1.65;">Each Key Result in the OKR module has a named owner. Leadership assigns it, the system tracks it. Ops builds and maintains the infrastructure — but the accountability sits with the division, not HR.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--amber-bg);border:1px solid var(--amber-mid);border-radius:10px;padding:14px 20px;font-size:13px;color:var(--ink-2);">
+        <strong style="color:var(--amber);font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:4px;">Key distinction</strong>
+        OKRs do not fix communication by themselves. They fix the <em>system</em> around communication — making ownership explicit, progress automatic, and gaps visible to leadership before they become problems. HR stops being the fallback because there is nothing left to fall back on.
+      </div>
+    </div>
+
+    <!-- OKR vs KPI Table -->
+    <div style="margin-bottom:28px;">
+      <div class="compare-header">OKR vs KPI — Side by Side</div>
+      <div class="compare-sub">Both are useful — but they answer different questions. Here is how they differ in practice.</div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>KPI (Key Performance Indicator)</th>
+            <th class="blue-col">OKR (Objectives &amp; Key Results)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Purpose</td>
+            <td>Monitor ongoing health of existing processes. "Are we maintaining performance?"</td>
+            <td class="blue-col">Drive change and ambitious progress. "Are we moving toward a new goal?"</td>
+          </tr>
+          <tr>
+            <td>Time horizon</td>
+            <td>Ongoing — tracked weekly or monthly indefinitely</td>
+            <td class="blue-col">Time-boxed — typically quarterly or semi-annually</td>
+          </tr>
+          <tr>
+            <td>Who sets it</td>
+            <td>Usually set by function heads to measure team performance</td>
+            <td class="blue-col">Set by leadership as company direction, cascaded to teams</td>
+          </tr>
+          <tr>
+            <td>What it measures</td>
+            <td>Operational output: ticket volume, resolution time, revenue per period</td>
+            <td class="blue-col">Progress toward a specific outcome: "Finance invoicing is fully automated"</td>
+          </tr>
+          <tr>
+            <td>Target score</td>
+            <td>100% is good — you want to hit the target every time</td>
+            <td class="blue-col">60–70% is good — OKRs should be ambitious enough that 100% means the target was set too low</td>
+          </tr>
+          <tr>
+            <td>Risk if overused</td>
+            <td>Teams optimise for the metric, not the outcome. You hit the number but miss the goal.</td>
+            <td class="blue-col">Too many OKRs dilute focus. 3 objectives maximum per team per cycle.</td>
+          </tr>
+          <tr>
+            <td>Best used for</td>
+            <td>SLA compliance, ticket resolution rates, uptime, revenue per product</td>
+            <td class="blue-col">Strategic initiatives: launching automation, building new capabilities, improving cross-team alignment</td>
+          </tr>
+          <tr>
+            <td>Vaudit use case</td>
+            <td>Dashboard metrics: open cases, SLA breach rate, PO approval time</td>
+            <td class="blue-col">Jul–Dec objectives: Ops-Bot intelligence layer, Finance pipeline, Ops Automation Expansion</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Example OKR -->
+    <div style="margin-bottom:28px;">
+      <div class="compare-header">Example — OKR Written Correctly</div>
+      <div class="compare-sub">The same goal written three ways: poorly, as a KPI, and as a proper OKR.</div>
+
+      <div class="example-box" style="margin-bottom:12px;">
+        <div class="example-box-header">
+          <span class="ex-badge badge badge-red">✗ Poor</span>
+          "We want Finance to work better"
+        </div>
+        <div style="padding:14px 18px;font-size:13px;color:var(--ink-3);">No objective, no measure, no deadline. Cannot be tracked or actioned. This is a wish, not a plan.</div>
+      </div>
+
+      <div class="example-box" style="margin-bottom:12px;">
+        <div class="example-box-header">
+          <span class="ex-badge badge badge-amber">~ KPI Version</span>
+          Finance KPI — Tracked Ongoing
+        </div>
+        <div class="example-rows">
+          <div class="ex-row">
+            <div class="ex-cell"><div class="ec-label">KPI</div><div class="ec-val"><strong>Invoice processing time</strong></div></div>
+            <div class="ex-cell"><div class="ec-label">Target</div><div class="ec-val">≤ 2 business days from case close</div></div>
+          </div>
+          <div class="ex-row">
+            <div class="ex-cell"><div class="ec-label">What it tells you</div><div class="ec-val">Whether Finance is processing invoices fast enough — useful for ongoing monitoring</div></div>
+            <div class="ex-cell"><div class="ec-label">What it doesn't tell you</div><div class="ec-val">Why it's slow. Whether we should automate it. Whether the team is working on the right thing.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="example-box">
+        <div class="example-box-header">
+          <span class="ex-badge badge badge-green">✓ OKR Version</span>
+          Correct OKR — Jul–Dec 2026
+        </div>
+        <div class="example-rows">
+          <div class="ex-row">
+            <div class="ex-cell"><div class="ec-label">Objective</div><div class="ec-val"><strong>Automate the Revenue-to-Finance Pipeline</strong><br><span style="font-size:12px;color:var(--ink-3);">Why: Finance division is still manually processing invoices after case close. This creates delay, risk of missed billing, and blocks the company from seeing real-time revenue.</span></div></div>
+            <div class="ex-cell"><div class="ec-label">Timeframe</div><div class="ec-val">July – August 2026 (8 weeks)</div></div>
+          </div>
+          <div class="ex-row">
+            <div class="ex-cell"><div class="ec-label">Key Result 1</div><div class="ec-val"><strong>Invoice data model agreed with Finance division</strong><br><span style="font-size:12px;color:var(--ink-3);">All required fields per product line signed off. Deadline: Jul 15.</span></div></div>
+            <div class="ex-cell"><div class="ec-label blue">Measure</div><div class="ec-val">Signed field mapping document covering AdID, VendorID, TokenID</div></div>
+          </div>
+          <div class="ex-row">
+            <div class="ex-cell"><div class="ec-label">Key Result 2</div><div class="ec-val"><strong>Case-close → Finance staging row triggered automatically</strong><br><span style="font-size:12px;color:var(--ink-3);">Zero manual data entry by Ops. Deadline: Aug 1.</span></div></div>
+            <div class="ex-cell"><div class="ec-label blue">Measure</div><div class="ec-val">0 manual entries in first month after launch</div></div>
+          </div>
+          <div class="ex-row">
+            <div class="ex-cell"><div class="ec-label">Key Result 3</div><div class="ec-val"><strong>Finance division can confirm invoices independently via dashboard</strong><br><span style="font-size:12px;color:var(--ink-3);">No Ops support requests in first 2 weeks of use. Deadline: Aug 20.</span></div></div>
+            <div class="ex-cell"><div class="ec-label blue">Measure</div><div class="ec-val">Finance sign-off on usability. Support requests = 0.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Advantages -->
+    <div class="compare-header">Why OKRs Work for Vaudit Right Now</div>
+    <div class="compare-sub">Six concrete reasons to adopt OKRs over KPI-only tracking at this stage of company growth.</div>
+    <div class="advantage-grid">
+      <div class="adv-card">
+        <div class="adv-icon">🎯</div>
+        <h4>Direction over activity</h4>
+        <p>OKRs force every team to ask "is this work connected to a company goal?" — not just "am I busy?" A team can hit all KPIs and still miss the board target.</p>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">👁️</div>
+        <h4>Visible to leadership</h4>
+        <p>With OKRs in the dashboard, Mark and Michael see progress in real time — without waiting for a weekly meeting or a status update.</p>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">🔗</div>
+        <h4>Connects to board targets</h4>
+        <p>Company OKRs set by leadership cascade to teams. Every deliverable traces back to what was committed to the Board — no gap between execution and governance.</p>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">⚡</div>
+        <h4>Faster course correction</h4>
+        <p>An amber OKR in week 4 is recoverable. A missed board target in week 12 is not. OKRs surface problems early enough to act.</p>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">🤝</div>
+        <h4>Cross-division alignment</h4>
+        <p>When Finance, Ops, and Partnerships share a company-level objective, they collaborate toward it — instead of optimising for their own numbers in isolation.</p>
+      </div>
+    </div>
+
+    <div class="proposal-box" style="margin-top:22px;margin-bottom:28px;">
+      <h3 style="display:flex;align-items:center;gap:10px;">
+        <span style="background:var(--blue);color:white;font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:6px;font-weight:500;letter-spacing:0.04em;">?</span>
+        Is OKR the right fit for a company of 40–50 people?
+      </h3>
+      <p style="margin-top:10px;">Yes — and actually, a company at this size is <em>exactly</em> where OKRs deliver the most value. Here is why.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
+        <div style="background:var(--green-bg);border:1px solid var(--green-mid);border-radius:8px;padding:14px 16px;">
+          <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--green);margin-bottom:6px;font-weight:600;">Why OKRs work at this stage</div>
+          <ul style="list-style:none;display:grid;gap:6px;">
+            <li style="font-size:13px;color:var(--ink-2);display:flex;gap:8px;"><span style="color:var(--green);flex-shrink:0;">✓</span> Small enough that 3–5 company objectives can actually represent everything important</li>
+            <li style="font-size:13px;color:var(--ink-2);display:flex;gap:8px;"><span style="color:var(--green);flex-shrink:0;">✓</span> Large enough that without alignment, different divisions start pulling in different directions</li>
+            <li style="font-size:13px;color:var(--ink-2);display:flex;gap:8px;"><span style="color:var(--green);flex-shrink:0;">✓</span> Fast-moving enough that a quarterly check-in keeps strategy current without bureaucracy</li>
+            <li style="font-size:13px;color:var(--ink-2);display:flex;gap:8px;"><span style="color:var(--green);flex-shrink:0;">✓</span> This is when habits form — companies that build OKR culture at 40 people maintain it at 400</li>
+          </ul>
+        </div>
+        <div style="background:var(--red-bg);border:1px solid var(--red-mid);border-radius:8px;padding:14px 16px;">
+          <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--red);margin-bottom:6px;font-weight:600;">Common mistakes at startup scale</div>
+          <ul style="list-style:none;display:grid;gap:6px;">
+            <li style="font-size:13px;color:var(--ink-2);display:flex;gap:8px;"><span style="color:var(--red);flex-shrink:0;">✗</span> Too many OKRs — 3 company objectives max. If everything is a priority, nothing is.</li>
+            <li style="font-size:13px;color:var(--ink-2);display:flex;gap:8px;"><span style="color:var(--red);flex-shrink:0;">✗</span> Treating OKRs like a task list — they should describe outcomes, not activities</li>
+            <li style="font-size:13px;color:var(--ink-2);display:flex;gap:8px;"><span style="color:var(--red);flex-shrink:0;">✗</span> Scoring too harshly — a 70% OKR is a win if the target was ambitious. 100% means it was too easy.</li>
+            <li style="font-size:13px;color:var(--ink-2);display:flex;gap:8px;"><span style="color:var(--red);flex-shrink:0;">✗</span> Setting OKRs once and never reviewing — a brief monthly check-in per team is enough</li>
+          </ul>
+        </div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-top:12px;font-size:13px;color:var(--ink-2);">
+        <strong style="color:var(--ink);display:block;margin-bottom:4px;">Recommendation for Vaudit</strong>
+        Start with <strong>3 company-level OKRs</strong> set by Mark and Michael for Jul–Dec 2026. Each division then defines how their work contributes to those 3 objectives — not a separate set of divisional OKRs, but Key Results that tie directly back to the top-level objectives. The dashboard module (O3 in this plan) makes this visible automatically.
+      </div>
+    </div>
+
+    <div class="proposal-box" style="margin-top:0px;">
+      <h3>Proposal: OKR Module in the Vaudit Accountability Dashboard</h3>
+      <p>Rather than tracking OKRs in a separate spreadsheet, the proposal is to build an OKR module inside the Vaudit Accountability Dashboard — where cases, SLAs, and escalations already live. Key Results update automatically from real operational data, not from manual self-reporting.</p>
+      <div class="feat-list">
+        <div class="feat-item"><div class="feat-icon">▦</div><div><strong>Leadership sets company Objectives</strong> Mark and Michael define the direction each quarter. Objectives cascade to divisions as assigned Key Results.</div></div>
+        <div class="feat-item"><div class="feat-icon">⟳</div><div><strong>Auto-tracking from live data</strong> Case closures, SLA compliance, and task completions automatically update KR progress — no manual entry needed.</div></div>
+        <div class="feat-item"><div class="feat-icon">📬</div><div><strong>Weekly Slack digest to leadership</strong> Every Monday: which objectives are on track, which are at risk, what is blocked.</div></div>
+        <div class="feat-item"><div class="feat-icon">📄</div><div><strong>One-click board export</strong> A board-ready summary generated directly from the OKR dashboard — no formatting work before a board meeting.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ OKR PLAN ═══ -->
+  <section class="section" id="okr-plan">
+    <div class="eyebrow">Commitment · July – December 2026</div>
+    <div class="sec-title">Jul–Dec 2026 <em>OKR Plan</em></div>
+    <div class="sec-sub">3 Objectives · 3 Key Results each · Weighted by priority</div>
+    <div class="divider"></div>
+
+    <!-- Priority summary cards -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-top:4px solid var(--blue);border-radius:10px;padding:18px 20px;">
+        <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);margin-bottom:8px;">O1 · Highest Priority</div>
+        <div style="font-family:var(--serif);font-size:36px;font-weight:400;color:var(--blue);line-height:1;margin-bottom:4px;">40%</div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:8px;">Ops-Bot Intelligence Layer</div>
+        <div style="display:grid;gap:4px;">
+          <div style="font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;"><span>KR 1.1 Data sources connected</span><span style="font-family:var(--mono);color:var(--blue);font-weight:600;">20%</span></div>
+          <div style="font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;"><span>KR 1.2 Ops-Bot live in Slack</span><span style="font-family:var(--mono);color:var(--blue);font-weight:600;">45%</span></div>
+          <div style="font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;"><span>KR 1.3 Adoption confirmed</span><span style="font-family:var(--mono);color:var(--blue);font-weight:600;">35%</span></div>
+        </div>
+        <div style="height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:10px;"><div style="height:100%;width:40%;background:var(--blue);border-radius:2px;"></div></div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-top:4px solid var(--green);border-radius:10px;padding:18px 20px;">
+        <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--green);margin-bottom:8px;">O2 · High Priority</div>
+        <div style="font-family:var(--serif);font-size:36px;font-weight:400;color:var(--green);line-height:1;margin-bottom:4px;">35%</div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:8px;">Finance Pipeline + Revenue View</div>
+        <div style="display:grid;gap:4px;">
+          <div style="font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;"><span>KR 2.1 Finance automation live</span><span style="font-family:var(--mono);color:var(--green);font-weight:600;">45%</span></div>
+          <div style="font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;"><span>KR 2.2 Revenue dashboard live</span><span style="font-family:var(--mono);color:var(--green);font-weight:600;">35%</span></div>
+          <div style="font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;"><span>KR 2.3 Forecast + board export</span><span style="font-family:var(--mono);color:var(--green);font-weight:600;">20%</span></div>
+        </div>
+        <div style="height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:10px;"><div style="height:100%;width:35%;background:var(--green);border-radius:2px;"></div></div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-top:4px solid #f59e0b;border-radius:10px;padding:18px 20px;">
+        <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#b45309;margin-bottom:8px;">O3 · Standard Priority</div>
+        <div style="font-family:var(--serif);font-size:36px;font-weight:400;color:#b45309;line-height:1;margin-bottom:4px;">25%</div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:8px;">Ops Automation Expansion</div>
+        <div style="display:grid;gap:4px;">
+          <div style="font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;"><span>KR 3.1 Top 5 tasks mapped</span><span style="font-family:var(--mono);color:#b45309;font-weight:600;">25%</span></div>
+          <div style="font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;"><span>KR 3.2 ≥ 3 automations live</span><span style="font-family:var(--mono);color:#b45309;font-weight:600;">50%</span></div>
+          <div style="font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;"><span>KR 3.3 Impact documented</span><span style="font-family:var(--mono);color:#b45309;font-weight:600;">25%</span></div>
+        </div>
+        <div style="height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:10px;"><div style="height:100%;width:25%;background:#f59e0b;border-radius:2px;"></div></div>
+      </div>
+    </div>
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 18px;font-size:12px;color:var(--ink-3);margin-bottom:28px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+      <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-4);">How to read:</span>
+      <span><strong style="color:var(--ink);">Objective %</strong> = share of total Jul–Dec score (O1+O2+O3 = 100%)</span>
+      <span><strong style="color:var(--ink);">KR %</strong> = share within that Objective (each O's KRs = 100%)</span>
+      <span style="color:var(--ink-4);">e.g. KR 1.2 alone = 45% × 40% = 18% of total score</span>
+    </div>
+    <div class="okr-block">
+      <div class="okr-hdr c-blue">
+        <span class="o-lbl">O1</span>
+        <h3>Build Ops-Bot — the Intelligence Layer Connecting All Company Data</h3>
+        <span class="o-period">Jul – Sep 2026</span>
+      </div>
+      <div class="okr-weight-banner" style="background:rgba(26,79,214,0.25);border-bottom:1px solid rgba(255,255,255,0.12);">
+        <div class="owb-pct">40%</div>
+        <div>
+          <div class="owb-label">of total Jul–Dec OKR score</div>
+          <div class="owb-bar" style="width:160px;margin-top:4px;"><div class="owb-fill" style="width:40%"></div></div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-left:auto;font-family:var(--mono);">Highest priority — unblocks O2 + O3</div>
+      </div>
+      <div class="okr-body">
+        <div class="okr-obj-desc">Create a self-serve intelligence layer that connects all Vaudit data sources (BigQuery, Zendesk, Google Sheets, Dashboard) and makes company information queryable by any team member via Slack — in plain English. This is the flagship Jul–Dec deliverable and the foundation that makes every other objective more powerful.</div>
+        <div class="kr-row th">
+          <div class="kr-cell">Key Result</div>
+          <div class="kr-cell">Success Measure</div>
+          <div class="kr-cell">Weight</div>
+          <div class="kr-cell">Owner</div>
+          <div class="kr-cell">Deadline</div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR 1.1 — All data sources connected and indexed</div>
+            <div class="kr-desc">BigQuery schema annotated (Data division), Zendesk tickets, Google Sheets (Finance, Ops), and Dashboard case data all connected to Ops-Bot as queryable sources. No source left as a silo.</div>
+          </div>
+          <div class="kr-cell"><span class="kr-metric">4 sources live + documented</span><div class="kr-desc" style="margin-top:5px;">Data division schema annotation confirmed in writing</div></div>
+          <div class="kr-cell">
+            <div class="wt-cell"><div class="wt-num" style="color:var(--blue);">20%</div><div class="wt-label">of O1</div><div class="wt-bar"><div class="wt-fill" style="width:20%"></div></div></div>
+          </div>
+          <div class="kr-cell">Ops + Data</div>
+          <div class="kr-cell">Aug 1</div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR 1.2 — Ops-Bot v1 live in Slack</div>
+            <div class="kr-desc">Any team member can type a plain-English question in Slack and receive a data answer powered by Claude AI. Covers at minimum 15 core queries across operations, finance, and partner performance — no SQL knowledge required.</div>
+          </div>
+          <div class="kr-cell"><span class="kr-metric">≥ 15 query types supported</span><div class="kr-desc" style="margin-top:5px;">Tested and confirmed by at least 3 different divisions</div></div>
+          <div class="kr-cell">
+            <div class="wt-cell"><div class="wt-num" style="color:var(--blue);">45%</div><div class="wt-label">of O1</div><div class="wt-bar"><div class="wt-fill" style="width:45%"></div></div></div>
+          </div>
+          <div class="kr-cell">Ops + Engineering</div>
+          <div class="kr-cell">Sep 1</div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR 1.3 — Self-serve adoption confirmed across divisions</div>
+            <div class="kr-desc">At least 5 team members from different divisions use Ops-Bot at least once per week without prompting. HR, Finance, Partnerships, and Data divisions each have at least one active user.</div>
+          </div>
+          <div class="kr-cell"><span class="kr-metric">≥ 5 weekly active users</span><div class="kr-desc" style="margin-top:5px;">Usage logged, not self-reported</div></div>
+          <div class="kr-cell">
+            <div class="wt-cell"><div class="wt-num" style="color:var(--blue);">35%</div><div class="wt-label">of O1</div><div class="wt-bar"><div class="wt-fill" style="width:35%"></div></div></div>
+          </div>
+          <div class="kr-cell">Ops</div>
+          <div class="kr-cell">Sep 30</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- O2 -->
+    <div class="okr-block">
+      <div class="okr-hdr c-green">
+        <span class="o-lbl">O2</span>
+        <h3>Automate Finance Pipeline &amp; Give Leadership a Live Revenue View</h3>
+        <span class="o-period">Jul – Oct 2026</span>
+      </div>
+      <div class="okr-weight-banner" style="background:rgba(10,102,64,0.3);border-bottom:1px solid rgba(255,255,255,0.12);">
+        <div class="owb-pct">35%</div>
+        <div>
+          <div class="owb-label">of total Jul–Dec OKR score</div>
+          <div class="owb-bar" style="width:160px;margin-top:4px;"><div class="owb-fill" style="width:35%"></div></div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-left:auto;font-family:var(--mono);">Direct revenue + leadership visibility</div>
+      </div>
+      <div class="okr-body">
+        <div class="okr-obj-desc">Connect case resolution (AdID / VendorID / TokenID) to automated invoice generation, and build a self-serve revenue dashboard with rolling forecast so leadership can track performance against board targets without requesting a report from Ops.</div>
+        <div class="kr-row th">
+          <div class="kr-cell">Key Result</div>
+          <div class="kr-cell">Success Measure</div>
+          <div class="kr-cell">Weight</div>
+          <div class="kr-cell">Owner</div>
+          <div class="kr-cell">Deadline</div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR 2.1 — Case-close → Finance automation live</div>
+            <div class="kr-desc">When a case is closed in the dashboard, invoice data is automatically written to Finance staging and a Slack notification sent. Finance division confirms via dashboard — zero manual entry by Ops.</div>
+          </div>
+          <div class="kr-cell"><span class="kr-metric">0 manual entries by Ops</span><div class="kr-desc" style="margin-top:5px;">Finance sign-off on usability within 2 weeks of launch</div></div>
+          <div class="kr-cell">
+            <div class="wt-cell"><div class="wt-num" style="color:var(--green);">45%</div><div class="wt-label">of O2</div><div class="wt-bar"><div class="wt-fill" style="width:45%;background:var(--green)"></div></div></div>
+          </div>
+          <div class="kr-cell">Ops + Finance</div>
+          <div class="kr-cell">Aug 20</div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR 2.2 — Live revenue dashboard by product for leadership</div>
+            <div class="kr-desc">Actual vs board forecast for AdID, VendorID, and TokenID — MTD, QTD, YTD. Leadership self-serves without contacting Ops. Data refreshes automatically from Finance pipeline.</div>
+          </div>
+          <div class="kr-cell"><span class="kr-metric">Leadership self-serves daily</span><div class="kr-desc" style="margin-top:5px;">Auto-refresh from Finance data confirmed</div></div>
+          <div class="kr-cell">
+            <div class="wt-cell"><div class="wt-num" style="color:var(--green);">35%</div><div class="wt-label">of O2</div><div class="wt-bar"><div class="wt-fill" style="width:35%;background:var(--green)"></div></div></div>
+          </div>
+          <div class="kr-cell">Ops</div>
+          <div class="kr-cell">Sep 15</div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR 2.3 — Rolling 3-month forecast + board export</div>
+            <div class="kr-desc">Forecast model based on open pipeline and close rate per product. Auto-flags when gap to board target widens. One-click export to board-ready PDF — no manual formatting required before a board meeting.</div>
+          </div>
+          <div class="kr-cell"><span class="kr-metric">Forecast accuracy ≥ 80%</span><div class="kr-desc" style="margin-top:5px;">Export used in ≥ 1 actual board prep cycle</div></div>
+          <div class="kr-cell">
+            <div class="wt-cell"><div class="wt-num" style="color:var(--green);">20%</div><div class="wt-label">of O2</div><div class="wt-bar"><div class="wt-fill" style="width:20%;background:var(--green)"></div></div></div>
+          </div>
+          <div class="kr-cell">Ops + Finance</div>
+          <div class="kr-cell">Oct 15</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- O3 -->
+    <div class="okr-block">
+      <div class="okr-hdr c-amber">
+        <span class="o-lbl">O3</span>
+        <h3>Ops Automation Expansion — Eliminate the Top Recurring Manual Tasks</h3>
+        <span class="o-period">Oct – Dec 2026</span>
+      </div>
+      <div class="okr-weight-banner" style="background:rgba(146,64,14,0.35);border-bottom:1px solid rgba(255,255,255,0.12);">
+        <div class="owb-pct">25%</div>
+        <div>
+          <div class="owb-label">of total Jul–Dec OKR score</div>
+          <div class="owb-bar" style="width:160px;margin-top:4px;"><div class="owb-fill" style="width:25%"></div></div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-left:auto;font-family:var(--mono);">Builds on O1 + O2 infrastructure</div>
+      </div>
+      <div class="okr-body">
+        <div class="okr-obj-desc">Identify and automate the highest-frequency manual tasks across all divisions — removing the recurring time cost of repetitive work from the Ops, Finance, and Partnerships teams. Each automation should save measurable hours per week and run without human intervention once deployed.</div>
+        <div class="kr-row th">
+          <div class="kr-cell">Key Result</div>
+          <div class="kr-cell">Success Measure</div>
+          <div class="kr-cell">Weight</div>
+          <div class="kr-cell">Owner</div>
+          <div class="kr-cell">Deadline</div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR 3.1 — Top 5 manual tasks mapped and prioritised across all divisions</div>
+            <div class="kr-desc">Sit with each division lead and document their top recurring manual tasks — frequency, time cost, and automation feasibility. Ranked by hours saved per week. Output is a prioritised automation backlog signed off by Mark.</div>
+          </div>
+          <div class="kr-cell">
+            <span class="kr-metric">Backlog signed off by leadership</span>
+            <div class="kr-desc" style="margin-top:5px;">Covers Ops, Finance, Partnerships, and Data divisions</div>
+          </div>
+          <div class="kr-cell">
+            <div class="wt-cell"><div class="wt-num" style="color:#b45309;">25%</div><div class="wt-label">of O3</div><div class="wt-bar"><div class="wt-fill" style="width:25%;background:#f59e0b"></div></div></div>
+          </div>
+          <div class="kr-cell">Ops</div>
+          <div class="kr-cell">Oct 15</div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR 3.2 — At least 3 automations live and saving measurable time</div>
+            <div class="kr-desc">The top 3 tasks from the backlog are automated and running in production. Each automation saves at least 2 hours per week across the division. Could include: weekly report generation, recurring Slack summaries, case status digests, invoice reminders, or onboarding checklists.</div>
+          </div>
+          <div class="kr-cell">
+            <span class="kr-metric">≥ 3 automations live</span>
+            <div class="kr-desc" style="margin-top:5px;">Each saving ≥ 2 hrs/week — total ≥ 6 hrs/week saved</div>
+          </div>
+          <div class="kr-cell">
+            <div class="wt-cell"><div class="wt-num" style="color:#b45309;">50%</div><div class="wt-label">of O3</div><div class="wt-bar"><div class="wt-fill" style="width:50%;background:#f59e0b"></div></div></div>
+          </div>
+          <div class="kr-cell">Ops + divisions</div>
+          <div class="kr-cell">Nov 30</div>
+        </div>
+        <div class="kr-row">
+          <div class="kr-cell">
+            <div class="kr-title">KR 3.3 — Automation impact documented and presented to leadership</div>
+            <div class="kr-desc">A concise year-end summary showing: which tasks were automated, which divisions benefited, total estimated hours saved per week, and what the team can now do with that recovered time. Presented at the December year-end review.</div>
+          </div>
+          <div class="kr-cell">
+            <span class="kr-metric">Presented at Dec year-end review</span>
+            <div class="kr-desc" style="margin-top:5px;">Hours saved quantified — not estimated</div>
+          </div>
+          <div class="kr-cell">
+            <div class="wt-cell"><div class="wt-num" style="color:#b45309;">25%</div><div class="wt-label">of O3</div><div class="wt-bar"><div class="wt-fill" style="width:25%;background:#f59e0b"></div></div></div>
+          </div>
+          <div class="kr-cell">Ops</div>
+          <div class="kr-cell">Dec 20</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ROADMAP ═══ -->
+  <section class="section" id="roadmap">
+    <div class="eyebrow">Delivery Plan</div>
+    <div class="sec-title">Month-by-Month <em>Roadmap</em></div>
+    <div class="sec-sub">July through December 2026</div>
+    <div class="divider"></div>
+
+    <div class="roadmap">
+      <div class="rm-line"></div>
+
+      <div class="rm-block p1">
+        <div class="rm-dot"></div>
+        <div class="rm-card">
+          <div class="rm-card-hdr">
+            <span class="rm-ptag">Phase 1 · O1 + O2 start</span>
+            <h4>Ops-Bot Foundation + Finance Pipeline</h4>
+            <span class="rm-date">Jul 1 – Jul 31</span>
+          </div>
+          <div class="rm-tasks">
+            <div class="rm-task"><strong>Escalate BigQuery schema annotation to Data division</strong> — written commitment with deadline; this unblocks Ops-Bot entirely</div>
+            <div class="rm-task"><strong>Connect all 4 data sources</strong> — BigQuery, Zendesk, Google Sheets (Finance + Ops), Dashboard cases indexed for Ops-Bot</div>
+            <div class="rm-task"><strong>Invoice data model session with Finance</strong> — agree all fields per product line (AdID, VendorID, TokenID) by Jul 15</div>
+            <div class="rm-task"><strong>Case-close → Finance staging trigger</strong> — Apps Script or Vercel webhook writing rows on case resolution + Slack notification</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rm-block p2">
+        <div class="rm-dot"></div>
+        <div class="rm-card">
+          <div class="rm-card-hdr">
+            <span class="rm-ptag">Phase 2 · O1 + O2</span>
+            <h4>Ops-Bot v1 Live + Finance Tab</h4>
+            <span class="rm-date">Aug 1 – Aug 31</span>
+          </div>
+          <div class="rm-tasks">
+            <div class="rm-task"><strong>Ops-Bot v1 live in Slack</strong> — plain-English queries → Claude AI → answers from all connected sources (with Engineering)</div>
+            <div class="rm-task"><strong>Finance tab live in dashboard</strong> — pending invoices, confirmation status, monthly totals by product (deadline Aug 20)</div>
+            <div class="rm-task"><strong>Zendesk → AR automation build</strong> — implement scoped flow for the Refund team; connected to Ops-Bot as a data source</div>
+            <div class="rm-task"><strong>Ops-Bot initial adoption drive</strong> — onboard HR, Finance, and Partnerships to the bot with sample queries for each division</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rm-block p3">
+        <div class="rm-dot"></div>
+        <div class="rm-card">
+          <div class="rm-card-hdr">
+            <span class="rm-ptag">Phase 3 · O1 confirmed + O2 complete</span>
+            <h4>Ops-Bot Adoption + Revenue Dashboard</h4>
+            <span class="rm-date">Sep 1 – Oct 15</span>
+          </div>
+          <div class="rm-tasks">
+            <div class="rm-task"><strong>Ops-Bot adoption confirmed</strong> — ≥ 5 weekly active users across 4+ divisions; usage logged by Sep 30</div>
+            <div class="rm-task"><strong>Live revenue dashboard for leadership</strong> — actual vs board forecast per product, self-serve, auto-refreshed (Sep 15)</div>
+            <div class="rm-task"><strong>Rolling 3-month forecast model</strong> — pipeline-based projection with gap alert (Sep 30)</div>
+            <div class="rm-task"><strong>One-click board export</strong> — PDF or slide summary from revenue dashboard, tested in real board prep (Oct 15)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rm-block p4">
+        <div class="rm-dot"></div>
+        <div class="rm-card">
+          <div class="rm-card-hdr">
+            <span class="rm-ptag">Phase 4 · O3 + wrap-up</span>
+            <h4>Automation Expansion + Year-End Review</h4>
+            <span class="rm-date">Oct 16 – Dec 20</span>
+          </div>
+          <div class="rm-tasks">
+            <div class="rm-task"><strong>Automation audit with each division</strong> — sit with Ops, Finance, Partnerships, and Data to map top 5 recurring manual tasks by time cost; backlog signed off by Mark by Oct 15</div>
+            <div class="rm-task"><strong>Automation #1 + #2 live</strong> — highest-priority tasks automated and running in production; each saving ≥ 2 hours per week (Nov 1)</div>
+            <div class="rm-task"><strong>Automation #3 live</strong> — third automation shipped; total time saved across divisions ≥ 6 hours per week confirmed (Nov 30)</div>
+            <div class="rm-task"><strong>Full Ops Playbook</strong> — all systems, integrations, Ops-Bot query library, automation runbooks, and escalation paths documented</div>
+            <div class="rm-task"><strong>Year-end review to leadership</strong> — outcomes: hours saved per week, Ops-Bot queries served, invoices automated, forecast accuracy (Dec 20)</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ TALKING ═══ -->
+  <section class="section" id="talking">
+    <div class="eyebrow">Meeting Guidance</div>
+    <div class="sec-title">Key <em>Discussion Points</em></div>
+    <div class="sec-sub">Topics to align on during this review</div>
+    <div class="divider"></div>
+
+    <div class="tp-card">
+      <div class="tp-card-title">Review conversation — structured by topic</div>
+      <div class="tp-row">
+        <div class="tp-moment">Apr–Jun Review</div>
+        <div class="tp-content"><strong>Open with what is working.</strong> The dashboard is live, the SLA framework is in place, and the partner dashboard is deployed. Walk leadership through the two or three most tangible wins before moving to what comes next.</div>
+      </div>
+      <div class="tp-row">
+        <div class="tp-moment">Priority</div>
+        <div class="tp-content"><strong>Confirm Finance automation is the right Jul–Dec priority.</strong> Before investing time on the revenue dashboard or automation expansion, confirm with leadership and Finance that automating the case-close → invoice flow is the most valuable thing to build in Q3.</div>
+      </div>
+      <div class="tp-row">
+        <div class="tp-moment">OKR Proposal</div>
+        <div class="tp-content"><strong>Frame O3 Automation Expansion as a company-wide initiative.</strong> Ask each division lead to bring their top 3 most time-consuming recurring tasks to a 30-minute session in October. The result is a backlog that makes real time savings visible to leadership — not just an Ops project.</div>
+      </div>
+      <div class="tp-row">
+        <div class="tp-moment">Dependencies</div>
+        <div class="tp-content"><strong>Two items need cross-division support to unblock.</strong> First: a written commitment from the Data division on the BigQuery schema annotation timeline — the Ops-Bot intelligence layer cannot connect all sources without it. Second: a working session with the Finance division to finalise the invoice data model (target by Jul 15).</div>
+      </div>
+      <div class="tp-row">
+        <div class="tp-moment">Close</div>
+        <div class="tp-content"><strong>End with a direct question:</strong> "What does success look like for the Operations function by December — from your perspective?" The OKR plan is a proposal — the final objectives should reflect what leadership wants Operations to achieve for the company this year.</div>
+      </div>
+    </div>
+
+    <div class="steps-box">
+      <div class="sb-label">Immediate next steps after this meeting</div>
+      <div class="step-line"><span class="step-date">Jun 23</span>Formal escalation to Data division — written request for BigQuery schema annotation with agreed deadline (unblocks Ops-Bot)</div>
+      <div class="step-line"><span class="step-date">Jun 30</span>All API credentials rotated and moved to Vercel environment variables</div>
+      <div class="step-line"><span class="step-date">Jul 15</span>Invoice data model session with Finance division — field mapping signed off</div>
+      <div class="step-line"><span class="step-date">Aug 1</span>Ops-Bot v1 + Finance staging trigger both live in production</div>
+    </div>
+
+    <div class="doc-footer">
+      <span>Hendra Wijaya · Operations Manager · Vaudit Bangkok</span>
+      <span>Review: June 2026 · OKR Period: Jul – Dec 2026</span>
+      <span>Confidential — For Mark Pettigrew &amp; Michael Hahn</span>
+    </div>
+  </section>
+
+</div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+const titles = {
+  cover:'Overview', score:'Performance & Achievements', 
+  'why-okr':'OKRs vs KPIs', 'okr-plan':'OKR Plan Jul–Dec 2026', roadmap:'Delivery Roadmap', talking:'Key Discussion Points'
+};
+function navigate(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const t = document.getElementById(id);
+  if (t) { t.classList.add('active'); window.scrollTo(0,0); }
+  if (btn) btn.classList.add('active');
+  document.getElementById('topbar-title').textContent = titles[id] || id;
+}
+function go(id) {
+  const btn = document.querySelector('[onclick*="\''+id+'\'"]');
+  navigate(id, btn);
+}
+function toggleScore(key) {
+  const wrap = document.getElementById('wrap-' + key);
+  const card = document.getElementById('card-' + key);
+  const isOpen = wrap.classList.contains('open');
+
+  // Close all
+  ['delivery','impact','maturity'].forEach(k => {
+    document.getElementById('wrap-' + k).classList.remove('open');
+    document.getElementById('card-' + k).classList.remove('active-card');
+  });
+
+  // Open if was closed
+  if (!isOpen) {
+    wrap.classList.add('open');
+    card.classList.add('active-card');
+    // Smooth scroll to explainer
+    setTimeout(() => wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+}
+</script>
+</body>
+</html>
